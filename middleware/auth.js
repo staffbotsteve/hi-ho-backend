@@ -1,38 +1,42 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 
-// Protect routes
-exports.protect = async (req, res, next) => {
-    let token;
+//secret key used in the encoding process. Can be anything
 
-    if(
-        req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')
-    ){
-        // set token from Bearer token in header
-        token = req.headers.authorization.split(' ')[1]
+//using jwt to endcode user information and returning it back as a token so they use it to make requests
+module.exports.tokenGenerator = (user, callback) => {
+  jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      password: user.password,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" },
+    (err, res) => {
+      callback(err, res);
     }
+  );
+};
 
-    if(!token){
-        return res.status(401).json({
-            success: false,
-            error: 'Not authorized to access this route'
-        })
-    }
-
-    try {
-        // verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        console.log(decoded);
-
-        req.user = await User.findById(decoded.id)
-
+//endpoint to decode token provided by the user and check if to authorize the request or not
+module.exports.authorizeUser = (req, res, next) => {
+  const token =
+    req.headers.authorization ||
+    req.headers["x-access-token"] ||
+    req.body.token;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        res.send(err);
+      } else {
+        req.decoded = decoded;
         next();
-    } catch (err) {
-        res.status(401).json({
-            success: false,
-            error: 'Not authorized to access this route'
-        })
-    }
-}
+      }
+    });
+  } else {
+    res.status(401).json({
+      status: "Failed",
+      message: "Authentication required for this route"
+    });
+  }
+};

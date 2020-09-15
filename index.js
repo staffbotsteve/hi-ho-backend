@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const connectDB = require('./config/db')
+const cors = require("cors");
 
 // Load env variables
 dotenv.config({ path: './config/config.env' });
@@ -13,6 +14,9 @@ const app = express();
 
 // Body Parser middleware
 app.use(express.json());
+
+//allow cross origin
+app.use(cors());
 
 // Mount routers
 app.use('/api/v1/auth', require('./routes/auth'))
