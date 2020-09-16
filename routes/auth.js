@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { register, login, getMe } = require('../controllers/auth');
-const { saveJobs, getJobs } = require('../controllers/jobs');
+const { saveJobs, getJobs, deleteJobs } = require('../controllers/jobs');
 
 const { authorizeUser } = require('../middleware/auth')
 
@@ -11,5 +11,6 @@ router.post('/login', login)
 router.get('/me/:id', authorizeUser, getMe)
 router.post('/jobs', saveJobs)
 router.get('/jobs/:id', getJobs)
+router.delete('/jobs/:id', deleteJobs)
 
 module.exports = router;
