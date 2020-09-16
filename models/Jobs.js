@@ -37,6 +37,10 @@ const jobSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  posted_time: {
+    type: String,
+    require: true,
+  }
 });
 
 module.exports = mongoose.model("Jobs", jobSchema);
