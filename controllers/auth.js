@@ -107,3 +107,21 @@ exports.getMe = (req, res) => {
     res.json({ error: "You cannot fetch profile for another user" });
   }
 };
+
+exports.updateMe = (req, res) => {
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, req.body, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        error: "Sorry, cannot process update at this time",
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        result,
+      });
+    }
+  });
+};
