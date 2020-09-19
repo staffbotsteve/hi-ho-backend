@@ -28,14 +28,6 @@ const UserSchema = new mongoose.Schema({
       minlength: 6,
       select: false
   }, 
-  // jobTitle: {
-  //   type: String,
-  //   required: [true, 'Please enter job title'], 
-  // },
-  // minSalary: {
-  //   type: String,
-  //   required: [true, 'Please enter minimum salary'],
-  // },
   createdAt: {
     type: Date,
     default: Date.now

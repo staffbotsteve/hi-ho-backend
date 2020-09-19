@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const jobSchema = mongoose.Schema({
+  jobId: {
+    type: String,
+    require: true,
+  },
   userId: {
     type: String,
     require: true,
