@@ -8,11 +8,11 @@ exports.register = async (req, res, next) => {
   const userDetails = req.body;
   User.create(userDetails, (err, data) => {
     if (err) {
-      throw err;
+      res.json({ err: "Email already exists" })
     } else {
       tokenGenerator(data, (err, token) => {
         if (err) {
-          res.json({ err: "unable to generate token" });
+          res.json({ err: "Unable to generate token" });
         } else {
           res.status(201).json({
             data,
@@ -23,6 +23,7 @@ exports.register = async (req, res, next) => {
       });
     }
   });
+  
 };
 
 // @desc    Login User

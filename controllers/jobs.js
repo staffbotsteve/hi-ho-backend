@@ -3,11 +3,9 @@ const Jobs = require("../models/Jobs");
 module.exports.saveJobs = (req, res) => {
   const jobDetails = req.body;
   Jobs.create(jobDetails, (err, data) => {
+    console.log("jobdetails", jobDetails)
     if (err) throw err;
-    res.json({
-      success: true,
-      data,
-    });
+    module.exports.getJobs(req,res)
   });
 };
 
