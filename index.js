@@ -31,13 +31,12 @@ app.use(express.json());
 //allow cross origin
 app.use(cors());
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("hi-ho-frontend/build"));
-}
-
 // Mount routers
 app.use("/api/v1/auth", require("./routes/auth"));
+
+app.get("/", (req, res) => {
+  res.send("app is running...")
+})
 
 const PORT = process.env.PORT || 5000;
 
