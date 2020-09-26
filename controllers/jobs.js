@@ -21,8 +21,9 @@ module.exports.getJobs = (req, res) => {
 };
 
 module.exports.deleteJobs = (req, res) => {
-  const id = req.params.id;
-  Jobs.deleteOne(res.id, (err, data) => {
+  const id = req.params.id.substring(1)
+  console.log(id)
+  Jobs.deleteOne({ jobId : id }, (err, data) => {
     if (err) throw err;
     res.json({
       success: true,
