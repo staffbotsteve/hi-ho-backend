@@ -18,6 +18,14 @@ const jobSchema = mongoose.Schema({
     require: true,
   },
   location: {
+    type: Array,
+    require: true,
+  },
+  minSalary: {
+    type: String,
+    require: true,
+  },
+  maxSalary: {
     type: String,
     require: true,
   },
@@ -26,6 +34,10 @@ const jobSchema = mongoose.Schema({
     require: true,
   },
   url: {
+    type: String,
+    require: true,
+  },
+  applyURL: {
     type: String,
     require: true,
   },
