@@ -18,6 +18,14 @@ const jobSchema = mongoose.Schema({
     require: true,
   },
   location: {
+    type: Array,
+    require: true,
+  },
+  minSalary: {
+    type: String,
+    require: true,
+  },
+  maxSalary: {
     type: String,
     require: true,
   },
@@ -25,26 +33,18 @@ const jobSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  job_age: {
-    type: String,
-    require: true,
-  },
   url: {
     type: String,
     require: true,
   },
-  city: {
-    type: String,
-    require: true,
-  },
-  state: {
+  applyURL: {
     type: String,
     require: true,
   },
   posted_time: {
     type: String,
     require: true,
-  }
+  },
 });
 
 module.exports = mongoose.model("Jobs", jobSchema);
